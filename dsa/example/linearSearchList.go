@@ -1,7 +1,7 @@
 package example
 
-func LinearSearchList(heystack []int, needle int) bool {
-	for _, v := range heystack {
+func LinearSearchList(haystack []int, needle int) bool {
+	for _, v := range haystack {
 		if v == needle {
 			return true
 		}
