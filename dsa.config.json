@@ -1,6 +1,7 @@
 {
   "dsa" : [
     "linearSearchList",
-    "BinarySearchList"
+    "BinarySearchList",
+    "TwoCrystalBalls"
   ]
 }
