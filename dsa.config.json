@@ -3,6 +3,8 @@
     "linearSearchList",
     "BinarySearchList",
     "TwoCrystalBalls",
-    "BubbleSort"
+    "BubbleSort",
+    "SinglyLinkedList",
+    "Queue"
   ]
 }
