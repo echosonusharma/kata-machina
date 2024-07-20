@@ -5,6 +5,7 @@
     "TwoCrystalBalls",
     "BubbleSort",
     "SinglyLinkedList",
-    "Queue"
+    "Queue",
+    "Stack"
   ]
 }
