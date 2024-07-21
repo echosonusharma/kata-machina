@@ -85,7 +85,7 @@ func (ll *LinkedList[T]) Remove() error {
 }
 
 func (ll *LinkedList[T]) InsertAt(item T, index uint) error {
-	if index >= ll.length {
+	if index > ll.length {
 		return nil
 	}
 	node := &Node[T]{value: item}
