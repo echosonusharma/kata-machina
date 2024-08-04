@@ -6,6 +6,7 @@
     "BubbleSort",
     "SinglyLinkedList",
     "Queue",
-    "Stack"
+    "Stack",
+    "MazeSolver"
   ]
 }
