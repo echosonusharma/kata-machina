@@ -7,23 +7,18 @@ import (
 	dsa "github.com/echosonusharma/kata-machina/dsa/example"
 )
 
-func TestBubbleSort(t *testing.T) {
+func TestQuickSort(t *testing.T) {
 	testCases := []struct {
 		name string
 		arr  []int
 	}{
-		{"expected * ", []int{23, 34, 45, 1}},
-		{"expected * ", []int{23, 334, 45, 345, 55}},
-		{"expected * ", []int{23, 34, 45, 88, 990}},
-		{"expected * ", []int{-87, -1, 0, 23, 34, 45}},
-		{"expected * ", []int{45, 567, 23, 34, 45}},
-		{"expected * ", []int{}},
+		{"expected * ", []int{10, 7, 8, 9, 1, 5}},
 	}
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			arr := append([]int(nil), tt.arr...)
-			dsa.BubbleSort(arr)
+			dsa.QuickSort(arr)
 
 			expected := append([]int(nil), tt.arr...)
 			slices.Sort(expected)
