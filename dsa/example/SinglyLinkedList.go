@@ -5,34 +5,33 @@ import (
 	"fmt"
 )
 
-type Node[T any] struct {
-	value T
-	next  *Node[T]
+type Node[S comparable] struct {
+	value S
+	next  *Node[S]
 }
 
-type LinkedList[T any] struct {
+type LinkedList[S comparable] struct {
 	length uint
-	head   *Node[T]
+	head   *Node[S]
 }
 
-func (ll *LinkedList[T]) Get(index uint) (T, error) {
+func (ll *LinkedList[S]) Get(index uint) (S, error) {
 	if index >= ll.length {
-		return ll.head.value, fmt.Errorf("invalid index - %d", index)
+		var empty S
+		return empty, fmt.Errorf("index %d - out of range", index)
 	}
 
-	currNode := ll.head
+	var currNode *Node[S] = ll.head
 
-	var i uint = 0
-	for i != index {
+	for i := 0; currNode != nil && i < int(index); i++ {
 		currNode = currNode.next
-		i++
 	}
 
 	return currNode.value, nil
 }
 
-func (ll *LinkedList[T]) Append(item T) {
-	node := &Node[T]{value: item, next: nil}
+func (ll *LinkedList[S]) Append(item S) {
+	node := &Node[S]{value: item, next: nil}
 
 	if ll.length == 0 {
 		ll.head = node
@@ -49,8 +48,8 @@ func (ll *LinkedList[T]) Append(item T) {
 	ll.length++
 }
 
-func (ll *LinkedList[T]) Prepend(item T) {
-	node := &Node[T]{value: item, next: nil}
+func (ll *LinkedList[S]) Prepend(item S) {
+	node := &Node[S]{value: item, next: nil}
 
 	if ll.length == 0 {
 		ll.head = node
@@ -62,41 +61,52 @@ func (ll *LinkedList[T]) Prepend(item T) {
 	ll.length++
 }
 
-func (ll *LinkedList[T]) Remove() error {
+func (ll *LinkedList[S]) Remove(item S) (S, error) {
 	if ll.length == 0 {
-		return errors.New("invalid attempt to remove")
+		var emp S
+		return emp, errors.New("item not found")
 	}
 
-	if ll.head.next == nil {
-		ll.head = nil
-		ll.length--
-		return nil
+	currNode := ll.head
+
+	if currNode.value == item {
+		ll.head = ll.head.next
+		return ll.head.value, nil
 	}
 
-	curNode := ll.head
-	for curNode.next != nil && curNode.next.next != nil {
-		curNode = curNode.next
+	for currNode.next != nil {
+		if currNode.next.value == item {
+			break
+		}
+
+		currNode = currNode.next
 	}
 
-	curNode.next = nil
+	if currNode == nil {
+		var emp S
+		return emp, errors.New("item not found")
+	}
+
+	currNode.next = currNode.next.next
 	ll.length--
 
-	return nil
+	return currNode.value, nil
 }
 
-func (ll *LinkedList[T]) InsertAt(item T, index uint) error {
+func (ll *LinkedList[S]) InsertAt(item S, index uint) error {
 	if index > ll.length {
-		return nil
+		return fmt.Errorf("index %d - out of range", index)
 	}
-	node := &Node[T]{value: item}
 
 	if index == 0 {
-		node.next = ll.head
-		ll.head = node
-		ll.length++
+		ll.Prepend(item)
+		return nil
+	} else if index == ll.length {
+		ll.Append(item)
 		return nil
 	}
 
+	node := &Node[S]{value: item}
 	currNode := ll.head
 
 	var i uint
@@ -115,9 +125,10 @@ func (ll *LinkedList[T]) InsertAt(item T, index uint) error {
 	return nil
 }
 
-func (ll *LinkedList[T]) RemoveAt(index uint) error {
+func (ll *LinkedList[S]) RemoveAt(index uint) error {
+
 	if index >= ll.length {
-		return nil
+		return fmt.Errorf("index %d - out of range", index)
 	}
 
 	if index == 0 {
@@ -137,8 +148,17 @@ func (ll *LinkedList[T]) RemoveAt(index uint) error {
 		return fmt.Errorf("failed to remove item at index %d", index)
 	}
 
-	currNode = currNode.next.next
+	currNode.next = currNode.next.next
 	ll.length--
 
 	return nil
 }
+
+// func (ll *LinkedList[S]) debug() {
+// 	node := ll.head
+// 	for node != nil {
+// 		fmt.Printf("%v -> ", node.value)
+// 		node = node.next
+// 	}
+// 	fmt.Println("")
+// }
