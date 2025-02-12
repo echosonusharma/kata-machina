@@ -4,16 +4,26 @@ import (
 	"fmt"
 	"os"
 
+	colors "github.com/echosonusharma/kata-machina/colors"
 	"github.com/echosonusharma/kata-machina/scripts"
 )
 
+var (
+	help_p *colors.ColorProfile = colors.New(
+		colors.WithFgColor(colors.FgColorRegistry.Yellow),
+		colors.WithBoldText,
+	)
+	fail_p *colors.ColorProfile = colors.New(
+		colors.WithFgColor(colors.FgColorRegistry.BrightRed),
+	)
+)
+
+var help_msg string = fmt.Sprintf(`%s pls use %s for help`, fail_p.Build("invalid command!"), help_p.Build("-h"))
+
 func main() {
 	args := os.Args
-	allArgs := args[1:]
 
-	// fmt.Println("cli flags passed", allArgs)
-
-	if err := cli(allArgs[0]); err != nil {
+	if err := cli(args[1]); err != nil {
 		panic(err)
 	}
 }
@@ -25,7 +35,7 @@ func cli(arg string) error {
 	case "clean":
 		return scripts.Clean()
 	default:
-		fmt.Printf("%s\n", "argument not found ^_^")
+		fmt.Println(help_msg)
 		return nil
 	}
 }
