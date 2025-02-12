@@ -13,29 +13,45 @@ var (
 		colors.WithFgColor(colors.FgColorRegistry.Yellow),
 		colors.WithBoldText,
 	)
-	fail_p *colors.ColorProfile = colors.New(
+	invalid_p *colors.ColorProfile = colors.New(
 		colors.WithFgColor(colors.FgColorRegistry.BrightRed),
+	)
+	no_cmd_p *colors.ColorProfile = colors.New(
+		colors.WithFgColor(colors.FgColorRegistry.Cyan),
 	)
 )
 
-var help_msg string = fmt.Sprintf(`%s pls use %s for help`, fail_p.Build("invalid command!"), help_p.Build("-h"))
+var (
+	invalid_cmd_msg string = fmt.Sprintf(`%s pls use %s for help`, invalid_p.Build("invalid command!"), help_p.Build("-h"))
+	no_cmd_msg      string = fmt.Sprintf(`%s pls use %s for help`, no_cmd_p.Build("no command passed!"), help_p.Build("-h"))
+)
 
 func main() {
 	args := os.Args
 
-	if err := cli(args[1]); err != nil {
+	if len(args) == 1 {
+		fmt.Println(no_cmd_msg)
+		return
+	}
+
+	if err := runCmd(args[1:]); err != nil {
 		panic(err)
 	}
 }
 
-func cli(arg string) error {
-	switch arg {
+func runCmd(args []string) error {
+	cmd := args[0]
+	cmd_args := args[1:]
+
+	switch cmd {
 	case "gen":
-		return scripts.Generate()
+		return scripts.Generate(cmd_args)
 	case "clean":
-		return scripts.Clean()
+		return scripts.Clean(cmd_args)
+	case "test":
+		return scripts.Test(cmd_args)
 	default:
-		fmt.Println(help_msg)
+		fmt.Println(invalid_cmd_msg)
 		return nil
 	}
 }

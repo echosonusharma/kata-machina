@@ -5,6 +5,7 @@ import (
 )
 
 // https://en.wikipedia.org/wiki/ANSI_escape_code#
+// support for it depends on the terminal
 
 var (
 	escape_char                   = "\033"

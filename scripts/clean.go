@@ -7,7 +7,9 @@ import (
 	"regexp"
 )
 
-func Clean() error {
+func Clean(args []string) error {
+	fmt.Println("clean args passed", args)
+
 	files, err := os.ReadDir(BASE_FOLDER_NAME)
 	if err != nil {
 		return err

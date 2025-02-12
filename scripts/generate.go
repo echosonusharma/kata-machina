@@ -13,11 +13,9 @@ const (
 	DSA_NAME_PREFIX  = "day"
 )
 
-// make sure main folder exits
-// find the next day count
-// create the file
+func Generate(args []string) error {
+	fmt.Println("clean args passed", args)
 
-func Generate() error {
 	if err := checkBaseFolderExits(); err != nil {
 		return err
 	}
