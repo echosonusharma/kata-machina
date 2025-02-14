@@ -14,10 +14,12 @@ var (
 		colors.WithBoldText,
 	)
 	invalid_p *colors.ColorProfile = colors.New(
-		colors.WithFgColor(colors.FgColorRegistry.BrightRed),
+		colors.WithFgColor(colors.FgColorRegistry.Red),
+		colors.WithBgColor(colors.BgColorRegistry.Black),
 	)
 	no_cmd_p *colors.ColorProfile = colors.New(
 		colors.WithFgColor(colors.FgColorRegistry.Cyan),
+		colors.WithBgColor(colors.BgColorRegistry.Black),
 	)
 )
 
