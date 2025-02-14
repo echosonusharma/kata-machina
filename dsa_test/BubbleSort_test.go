@@ -3,8 +3,6 @@ package dsa_test
 import (
 	"slices"
 	"testing"
-
-	dsa "github.com/echosonusharma/kata-machina/dsa/example"
 )
 
 func TestBubbleSort(t *testing.T) {
@@ -23,7 +21,7 @@ func TestBubbleSort(t *testing.T) {
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			arr := append([]int(nil), tt.arr...)
-			dsa.BubbleSort(arr)
+			DsaStore.bubbleSortFunc(arr)
 
 			expected := append([]int(nil), tt.arr...)
 			slices.Sort(expected)
@@ -33,5 +31,4 @@ func TestBubbleSort(t *testing.T) {
 			}
 		})
 	}
-
 }

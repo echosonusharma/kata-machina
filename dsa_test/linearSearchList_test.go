@@ -2,8 +2,6 @@ package dsa_test
 
 import (
 	"testing"
-
-	dsa "github.com/echosonusharma/kata-machina/dsa/example"
 )
 
 func TestLinerSearchList(t *testing.T) {
@@ -23,12 +21,11 @@ func TestLinerSearchList(t *testing.T) {
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
-			res := dsa.LinearSearchList(tt.haystack, tt.needle)
+			res := DsaStore.linearSearchFunc(tt.haystack, tt.needle)
 
 			if res != tt.expected {
 				t.Errorf("got %t, want %t", res, tt.expected)
 			}
 		})
 	}
-
 }

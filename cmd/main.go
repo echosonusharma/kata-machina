@@ -48,8 +48,6 @@ func runCmd(args []string) error {
 		return scripts.Generate(cmd_args)
 	case "clean":
 		return scripts.Clean(cmd_args)
-	case "test":
-		return scripts.Test(cmd_args)
 	default:
 		fmt.Println(invalid_cmd_msg)
 		return nil

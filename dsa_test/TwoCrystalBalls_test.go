@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math/rand/v2"
 	"testing"
-
-	dsa "github.com/echosonusharma/kata-machina/dsa/example"
 )
 
 type TwoCrystalBallsTestTable struct {
@@ -41,7 +39,7 @@ func TestTwoCrystalBalls(t *testing.T) {
 
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
-			res := dsa.TwoCrystalBalls(tt.breaks)
+			res := DsaStore.twoCrystalBallsFunc(tt.breaks)
 
 			if res != tt.expected {
 				t.Log("input breaks arr - ", tt.breaks)
@@ -49,5 +47,4 @@ func TestTwoCrystalBalls(t *testing.T) {
 			}
 		})
 	}
-
 }
