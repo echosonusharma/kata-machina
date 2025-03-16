@@ -34,10 +34,10 @@ func Clean(args []string) error {
 		if arg == "-all" {
 			warn_p.Print("deleting all the dsa directory's...\n")
 			deleteAll = true
-		} else if arg == "-last" {
-			warn_p.Print("deleting the last dsa directory...\n")
-			deleteLast = true
 		}
+	} else {
+		warn_p.Print("deleting the last dsa directory...\n")
+		deleteLast = true
 	}
 
 	files, err := os.ReadDir(baseFolderName)

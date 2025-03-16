@@ -20,4 +20,4 @@ The `dsa.config.json` file contains all the configuration for generating the DSA
 **Commands for the CLI**
 
 - `gen` - generates a new dir with a list of dsa files with their starter code. 
-- `clean` - removes last created dsa dir or you can pass arg -all to remove all generated dsa dir.
+- `clean` - removes last created dsa dir or you can pass arg `-all` to remove all generated dsa dir.

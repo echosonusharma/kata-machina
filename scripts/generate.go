@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -77,6 +78,10 @@ func Generate(args []string) error {
 	}
 
 	for _, v := range dsaConfig.Code {
+		if !slices.Contains(dsaConfig.Dsa, v.Name) {
+			continue
+		}
+
 		fileName := fmt.Sprintf("%s.go", v.Name)
 		var fileContent string
 		fileContent += fmt.Sprintf("package %s", fmt.Sprintf("%s%d", dsaNamePrefix, nextDirNumber))
