@@ -18,4 +18,4 @@ format:
 
 .PHONY: test
 test:
-	@go test ./dsa_test
+	@go test -v ./dsa_test
