@@ -1,6 +1,8 @@
 package scripts
 
 import (
+	"embed"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -22,7 +24,26 @@ var (
 		colors.WithBgColor(colors.BgColorRegistry.Black),
 		colors.WithBoldText,
 	)
+	file_p *colors.ColorProfile = colors.New(
+		colors.WithFgColor(colors.FgColorRegistry.Magenta),
+		colors.WithBgColor(colors.BgColorRegistry.Black),
+		colors.WithBoldText,
+	)
 )
+
+//go:embed static/*
+var configFiles embed.FS
+
+type dsaCode struct {
+	Name   string   `json:"name"`
+	Import string   `json:"import"`
+	Func   []string `json:"func"`
+}
+
+type dsaConfig struct {
+	Dsa  []string  `json:"dsa"`
+	Code []dsaCode `json:"code"`
+}
 
 func Generate(args []string) error {
 	if err := checkBaseFolderExits(); err != nil {
@@ -42,6 +63,39 @@ func Generate(args []string) error {
 	}
 
 	fmt.Printf("%s dir created.\n", dir_p.Build(filepath.Base(nextDirPath)))
+
+	data, err := configFiles.ReadFile("static/dsa.config.json")
+	if err != nil {
+		return err
+	}
+
+	var dsaConfig dsaConfig
+
+	err = json.Unmarshal(data, &dsaConfig)
+	if err != nil {
+		return err
+	}
+
+	for _, v := range dsaConfig.Code {
+		fileName := fmt.Sprintf("%s.go", v.Name)
+		var fileContent string
+		fileContent += fmt.Sprintf("package %s", fmt.Sprintf("%s%d", dsaNamePrefix, nextDirNumber))
+		fileContent += "\n\n"
+		if len(v.Import) > 0 {
+			fileContent += v.Import
+			fileContent += "\n\n"
+		}
+		fileContent += strings.Join(v.Func, "\n\n")
+
+		err := os.WriteFile(filepath.Join(nextDirPath, fileName), []byte(fileContent), 0644)
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("%s file created.\n", file_p.Build(fileName))
+	}
+
+	fmt.Printf("all done %s", dir_p.Build("^_____^"))
 	return nil
 }
 

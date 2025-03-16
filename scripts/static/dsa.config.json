@@ -1,0 +1,46 @@
+{
+  "dsa": [
+    "linearSearchList",
+    "BinarySearchList",
+    "TwoCrystalBalls",
+    "BubbleSort",
+    "SinglyLinkedList",
+    "Queue",
+    "Stack",
+    "MazeSolver"
+  ],
+  "code": [
+    {
+      "name": "linearSearchList",
+      "import": "",
+      "func": ["func LinearSearchList(haystack []int, needle int) bool { return false }"]
+    },
+    {
+      "name": "BinarySearchList",
+      "import": "",
+      "func": ["func BS_List(haystack []int, needle int) bool { return false }"]
+    },
+    {
+      "name": "TwoCrystalBalls",
+      "import": "",
+      "func": ["func TwoCrystalBalls(breaks []bool) int { return 0 }"]
+    },
+    {
+      "name": "BubbleSort",
+      "import": "",
+      "func": ["func BubbleSort(arr []int) {}"]
+    },
+    {
+      "name": "linearSearchList",
+      "import": "import (\n t \"github.com/echosonusharma/kata-machina/types\"\n)\n",
+      "func": [
+        "func LlGet(ll *t.LinkedList, index uint) (string, error) { return \"\", nil }",
+        "func LlAppend(ll *t.LinkedList, item string) {}",
+        "func LlPrepend(ll *t.LinkedList, item string) {}",
+        "func LlRemove(ll *t.LinkedList, item string) (string, error) { return \"\", nil }",
+        "func LlInsertAt(ll *t.LinkedList, item string, index uint) error { return nil }",
+        "func LlRemoveAt(ll *t.LinkedList, index uint) error { return nil }"
+      ]
+    }
+  ]
+}
